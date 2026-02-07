@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .delete-container {
+        width: 45%;
+        margin: 80px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+        transition: 0.3s ease;
+    }
+
+    /* Title */
+    .delete-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #d53131;
+        margin-bottom: 10px;
+    }
+
+    /* Text */
+    .delete-text {
+        font-size: 18px;
+        color: #444;
+        margin-bottom: 25px;
+    }
+
+    /* Buttons */
+    .confirm-btn {
+        background: #d9534f;
+        padding: 12px 25px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .confirm-btn:hover {
+        background: #c9302c;
+    }
+
+    .cancel-btn {
+        display: inline-block;
+        margin-left: 20px;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 6px;
+        background: #3c91ec;
+        padding: 12px 20px;
+    }
+
+    .cancel-btn:hover {
+        opacity: 0.9;
+    }
+
+    /* -------------------------- */
+    /*      RESPONSIVE DESIGN     */
+    /* -------------------------- */
+    @media (max-width: 1024px) {
+        .delete-container {
+            width: 60%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .delete-container {
+            width: 80%;
+            padding: 25px;
+        }
+
+        .delete-title {
+            font-size: 22px;
+        }
+
+        .delete-text {
+            font-size: 16px;
+        }
+
+        .confirm-btn,
+        .cancel-btn {
+            font-size: 15px;
+            padding: 10px 18px;
+            margin-top: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .delete-container {
+            width: 95%;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .delete-title {
+            font-size: 20px;
+        }
+
+        .delete-text {
+            font-size: 15px;
+        }
+
+        .cancel-btn {
+            display: block;
+            margin: 15px auto 0;
+        }
+    }
+</style>
+
+<div class="delete-container">
+    <h2 class="delete-title">Confirm Delete</h2>
+
+    <p class="delete-text">
+        Are you sure you want to delete <strong>{{ resource.title }}</strong>?
+    </p>
+
+    <form method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="confirm-btn">Yes, Delete</button>
+    </form>
+
+    <a href="{% url 'profile' %}" class="cancel-btn">Cancel</a>
+</div>
+
+{% endblock %}

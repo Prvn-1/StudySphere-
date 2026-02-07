@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | CampusShare</title>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* PROFILE CARD */
+    .profile-container {
+      max-width: 450px;
+      width: 90%;
+      background: white;
+      padding: 30px;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #5563DE;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .info p {
+      margin: 10px 0;
+      color: #444;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    /* BUTTON STYLING */
+    .btn {
+      background: #5563DE;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      background: #3542A2;
+    }
+
+    .btn-danger {
+      background: #d9534f;
+    }
+
+    .btn-danger:hover {
+      background: #b9443f;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* RESOURCES TABLE WRAPPER (FIXES MOBILE BREAKING) */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #5563DE;
+      color: white;
+    }
+
+    /* MOBILE OPTIMIZATION */
+    @media(max-width: 600px) {
+      .profile-container {
+        padding: 20px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      .btn {
+        padding: 8px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PROFILE CARD -->
+  <div class="profile-container">
+
+    <img src="{{ profile.profile_pic.url|default:'/media/default.jpeg' }}" class="profile-pic">
+
+    <h2>{{ user.username }}</h2>
+    <p style="color: gray;">{{ user.email }}</p>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p style="color: green; font-weight: 600;">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+
+    <!-- VIEW MODE -->
+    <div id="view-section" class="info">
+      <p><strong>College:</strong> {{ profile.college }}</p>
+      <p><strong>Department:</strong> {{ profile.department }}</p>
+      <p><strong>Year:</strong> {{ profile.year }}</p>
+    </div>
+
+    <!-- EDIT MODE -->
+    <form id="edit-section" method="POST" enctype="multipart/form-data" style="display:none;">
+      {% csrf_token %}
+
+      <label>College:</label>
+      <input type="text" name="college" value="{{ profile.college }}">
+
+      <label>Department:</label>
+      <input type="text" name="department" value="{{ profile.department }}">
+
+      <label>Year:</label>
+      <select name="year">
+        <option value="1" {% if profile.year == 1 %}selected{% endif %}>1</option>
+        <option value="2" {% if profile.year == 2 %}selected{% endif %}>2</option>
+        <option value="3" {% if profile.year == 3 %}selected{% endif %}>3</option>
+        <option value="4" {% if profile.year == 4 %}selected{% endif %}>4</option>
+      </select>
+
+      <label>Profile Picture:</label>
+      <input type="file" name="profile_pic">
+
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn btn-danger" onclick="toggleEdit(false)">Cancel</button>
+    </form>
+
+    <!-- ACTION BUTTONS -->
+    <div class="btn-group" id="button-section">
+      <a href="{% url 'home' %}" class="btn">Home</a>
+      <button class="btn" onclick="toggleEdit(true)">Edit</button>
+    </div>
+  </div>
+
+  <!-- UPLOADED RESOURCES TABLE -->
+  <div class="table-wrapper">
+    <h2 style="text-align:center; color:#222;">Your Uploaded Resources</h2>
+
+    {% if uploaded_resources %}
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Downloads</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for res in uploaded_resources %}
+        <tr>
+          <td>{{ res.title }}</td>
+          <td>{{ res.category }}</td>
+          <td>{{ res.download_count }}</td>
+          <td>
+            <a href="{% url 'resource_edit' res.id %}" class="btn" style="padding:6px 12px;">Edit</a>
+            <a href="{% url 'resource_delete' res.id %}" class="btn btn-danger" style="padding:6px 12px;">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% else %}
+    <p style="text-align:center; color:#333;">No resources uploaded yet.</p>
+    {% endif %}
+  </div>
+
+  <script>
+    function toggleEdit(show) {
+      document.getElementById("edit-section").style.display = show ? "block" : "none";
+      document.getElementById("view-section").style.display = show ? "none" : "block";
+      document.getElementById("button-section").style.display = show ? "none" : "flex";
+    }
+  </script>
+
+</body>
+
+</html>

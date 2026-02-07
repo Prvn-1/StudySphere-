@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resource.title }} | CampusShare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .box {
+      background: #fff;
+      max-width: 700px;
+      width: 95%;
+      margin: 20px auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 5px 6px 22px rgb(18, 9, 84);
+    }
+
+    h2,
+    h3 {
+      margin-top: 0;
+      color: #3949AB;
+    }
+
+    a {
+      color: #3949AB;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .rating {
+      color: gold;
+      font-size: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .box {
+        padding: 18px;
+      }
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="{% url 'resource_list' %}" class="back-btn">← Back to All Resources</a>
+
+  <div class="box">
+    <h2>{{ resource.title }}</h2>
+
+    <p><strong>Category:</strong> {{ resource.category }}</p>
+    <p><strong>College:</strong> {{ resource.college }}</p>
+    <p><strong>Department:</strong> {{ resource.department }}</p>
+
+    <p>{{ resource.description }}</p>
+
+    <p><strong>Average Rating:</strong> {{ avg|floatformat:1 }}/5 </p>
+    <p><strong>Downloads:</strong> {{ resource.download_count }}</p>
+
+    <a href="{% url 'download_resource' resource.id %}">Download File</a> |
+    <a href="{% url 'rate_resource' resource.id %}">Rate this Resource</a>
+  </div>
+
+  <div class="box">
+    <h3>All Ratings</h3>
+
+    {% for r in ratings %}
+    <p>
+      {{ r.stars }} — {{ r.user.username }} <br>
+      "{{ r.comment }}"
+    </p>
+    {% empty %}
+    <p>No ratings yet.</p>
+    {% endfor %}
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | CampusShare</title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #74ABE2, #5563DE);
+            margin: 0;
+            padding: 0;
+        }
+
+        .resource-container {
+            max-width: 600px;
+            width: 80%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 6px 20px rgb(18, 9, 84);
+        }
+        .resource-item {
+            border-bottom: 3px solid #eee;
+            padding: 10px 0;
+        }
+    
+
+        .resource-item h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .resource-item a {
+            color: #5563DE;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            color: #f8f2f2;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .resource-container {
+                margin: 30px auto;
+                padding: 15px;
+            }
+
+            .resource-item h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="{% url 'home' %}" class="back-btn">← Back to home</a>
+
+    <div class="resource-container">
+        <h2>All Resources</h2>
+
+        {% for res in resources %}
+        <div class="resource-item">
+            <h3>{{ res.title }}</h3>
+            <p>{{ res.description }}</p>
+
+            <p><strong>College:</strong> {{ res.college }}
+                <br><strong>Dept:</strong> {{ res.department }}
+            </p>
+
+            <p><a href="{{ res.file.url }}" download>Download</a></p>
+            <p><a href="{% url 'resource_detail' res.id %}">View Details</a></p>
+        </div>
+
+        {% empty %}
+        <p>No approved resources yet.</p>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusShare | Home</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background: rgba(0, 0, 0, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      backdrop-filter: blur(8px);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a,
+    .nav-links button {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover {
+      color: #FFD700;
+    }
+
+    /* Search Input inside nav */
+    .nav-search {
+      margin-left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-search input {
+      padding: 6px 10px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .nav-search button {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: none;
+      background: #FFD700;
+      color: #333;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .nav-search button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #f8f8f8;
+    }
+
+    .btn {
+      background-color: #fff;
+      color: #5563DE;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #FFD700;
+      transform: scale(1.05);
+      color: #333;
+    }
+
+    /* Resource Feed */
+    .resource-feed {
+      padding: 20px;
+      max-width: 900px;
+      margin: 20px auto 50px auto;
+    }
+
+    .resource-post {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .resource-post:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .resource-post h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+    }
+
+    .resource-post p {
+      margin: 0 0 10px 0;
+      line-height: 1.5;
+    }
+
+    .resource-post small {
+      display: block;
+      margin-bottom: 10px;
+      color: #f1f1f1;
+    }
+
+    .resource-post a {
+      display: inline-block;
+      padding: 8px 15px;
+      background: #FFD700;
+      color: #333;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .resource-post a:hover {
+      background: #fff;
+      transform: scale(1.05);
+      color: #5563DE;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.25);
+      color: #f1f1f1;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media(max-width:768px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav-search {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      .nav-search input {
+        width: 70%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="{% url 'home' %}" class="logo">CampusShare</a>
+    <div class="nav-links">
+      <!-- Search bar inside nav -->
+      {% if user.is_authenticated %}
+      <div class="nav-search">
+        <input type="text" id="search-input" placeholder="Search resources...">
+        <button type="button" id="search-btn">Search</button>
+      </div>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <a href="{% url 'upload_resource' %}">Upload Resource</a>
+      <a href="{% url 'resource_list' %}">All Resources</a>
+      <a href="{% url 'profile' %}">Profile</a>
+      <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to <span style="color:#FFD700;">CampusShare</span></h1>
+    <p>Connect, collaborate, and grow with your college community. Share notes, ideas, and opportunities with students
+      across your campus!</p>
+    {% if not user.is_authenticated %}
+    <a href="{% url 'register' %}" class="btn">Get Started</a>
+    {% else %}
+    <a href="{% url 'profile' %}" class="btn">Go to Profile</a>
+    {% endif %}
+  </section>
+
+  <!-- Resource Feed -->
+  <section id="resource-feed" class="resource-feed">
+    {% include 'main/resource_feed.html' %}
+  </section>
+
+  <!-- AJAX Script for live search -->
+  <script>
+    const searchInput = document.getElementById('search-input');
+    const feed = document.getElementById('resource-feed');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        const query = this.value;
+
+        fetch(`{% url 'home' %}?q=${query}`, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+          .then(response => response.text())
+          .then(data => {
+            feed.innerHTML = data; // Only updates the cards below
+          });
+      });
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 CampusShare. Made with 💙 by Kokila.
+  </footer>
+</body>
+
+</html>

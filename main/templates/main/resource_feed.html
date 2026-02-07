@@ -1,0 +1,15 @@
+{% for resource in resources %}
+<div class="resource-post">
+  <h3>{{ resource.title }}</h3>
+  <p>{{ resource.description }}</p>
+  <small>Uploaded by: {{ resource.uploaded_by.username }}</small>
+  {% if resource.file %}
+  <a href="{{ resource.file.url }}" target="_blank">Download</a>
+  <a href="{% url 'resource_detail' resource.id %}">
+    View details
+  </a>
+  {% endif %}
+</div>
+{% empty %}
+<p style="text-align:center;">No resources found.</p>
+{% endfor %}

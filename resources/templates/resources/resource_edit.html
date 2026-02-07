@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #5C6BC0, #3949AB);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .upload-container {
+        max-width: 500px;
+        width: 90%;
+        background: white;
+        color: #333;
+        padding: 25px;
+        margin: 80px auto;
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+        text-align: center;
+        color: #3949AB;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+        font-size: 14px;
+    }
+
+    button {
+        background: #3949AB;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background: #283593;
+    }
+
+    .back-btn {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        color: #333;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .back-btn:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        .upload-container {
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        button {
+            font-size: 15px;
+        }
+    }
+</style>
+
+<div class="upload-container">
+    <h2>Edit Resource</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <a href="{% url 'profile' %}" class="back-btn">← Back to Profile</a>
+</div>
+
+{% endblock %}
