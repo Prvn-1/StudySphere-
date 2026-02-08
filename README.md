@@ -1,8 +1,3 @@
-So you want the same polished README structure… but for your own project. Good. Consistency makes you look like you know what you're doing. Let’s do it properly.
-
-Below is your **StudySphere – Academic Resource Sharing Platform** README in the same professional format.
-
----
 
 # PROJECT LINK – [https://studysphere-04og.onrender.com/](https://studysphere-04og.onrender.com/)
 
