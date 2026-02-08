@@ -1,91 +1,93 @@
-# PROJECT LINK - https://campusshare.onrender.com
-# CampusShare
+So you want the same polished README structure… but for your own project. Good. Consistency makes you look like you know what you're doing. Let’s do it properly.
 
-**CampusShare** is a web-based academic resource sharing platform designed for college students.
-It allows students to upload, download, rate, and comment on study materials such as notes, question papers, assignments, and reference documents.
-The platform promotes collaborative learning by making academic resources easily accessible in one place.
+Below is your **StudySphere – Academic Resource Sharing Platform** README in the same professional format.
 
 ---
 
-##  Features
+# PROJECT LINK – [https://studysphere-04og.onrender.com/](https://studysphere-04og.onrender.com/)
 
-*  **User Authentication & Authorization**
+# StudySphere
 
-  * Student registration and login
-  * Secure authentication using Django
-  * Admin approval for uploaded resources
+**StudySphere** is a full-stack academic resource sharing platform built using Django.
+It enables students to upload, download, rate, and manage study materials in a secure and structured environment.
+The platform focuses on simplifying academic collaboration and improving access to educational resources.
 
-*  **Resource Upload & Download**
+---
 
-  * Upload PDFs, documents, and study materials
-  * Download count tracking
-  * Admin verification before public access
+## Features
 
-*  **Ratings & Comments**
+* **User Authentication & Authorization**
 
-  * Rate resources (1–5 stars)
+  * Secure student registration and login
+  * Django authentication system
+  * Profile management
+
+* **Resource Upload & Management**
+
+  * Upload academic materials (PDF, documents)
+  * Download tracking system
+  * Organized resource categories
+
+* **Ratings & Feedback**
+
+  * Rate shared resources
   * View average ratings
-  * Comment on shared resources
+  * Interactive feedback system
 
-*  **Search & Filter**
+* **Search & Filtering**
 
   * Search by title and description
-  * Filter by college, department, category, semester
+  * Filter by department, semester, and category
 
-*  **Pagination**
+* **User Profile System**
 
-  * Efficient loading of large resource lists
+  * Update profile information
+  * View personal uploads
+  * Manage shared resources
 
-*  **User Profile**
+* **Database Integration**
 
-  * Edit profile details
-  * Upload profile picture
-  * View uploaded resources
-
-*  **Admin Panel**
-
-  * Manage users and resources
-  * Approve or reject uploads
-  * Maintain content quality
+  * Structured storage of users and resources
+  * Efficient data retrieval using Django ORM
 
 ---
 
 ## Project Architecture
 
-CampusShare follows **Django’s MVT (Model–View–Template)** architecture:
+StudySphere follows **Django’s MVT (Model–View–Template)** architecture:
 
-* **Model** – Database schema using Django ORM
+* **Model** – Database structure using Django ORM
 * **View** – Business logic and request handling
-* **Template** – HTML pages with Django template language
+* **Template** – Frontend rendering using Django template engine
 
 ### Components:
 
 * **Frontend (UI)**: HTML, CSS, JavaScript
 * **Backend**: Django (Python)
-* **Database**: SQLite / PostgreSQL
+* **Database**: MySQL
 * **ORM**: Django ORM
-* **Static Files**: CSS, JS, Images
-* **Media Files**: Uploaded resources and profile images
+* **Static Files**: CSS, JavaScript, Images
+* **Media Files**: Uploaded study materials
 
 ---
 
-##  Technologies Used
+## Technologies Used
 
 * **Frontend**: HTML, CSS, JavaScript
 * **Backend**: Python, Django
-* **Database**: SQLite / PostgreSQL
-* **Authentication**: Django Auth System
+* **Database**: MySQL
+* **Authentication**: Django Authentication System
 * **Version Control**: Git & GitHub
 
 ---
 
-##  How to Run the Project Locally
+## How to Run the Project Locally
 
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/campusshare.git
-cd campusshare
+git clone https://github.com/your-username/studysphere.git
+cd studysphere
 ```
 
 2. **Create virtual environment**
@@ -113,13 +115,13 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-6. **Run server**
+6. **Run the server**
 
 ```bash
 python manage.py runserver
 ```
 
-7. Open browser:
+7. Open in browser:
 
 ```
 http://127.0.0.1:8000/
@@ -127,33 +129,24 @@ http://127.0.0.1:8000/
 
 ---
 
-##  Project Goal
+## Project Objective
 
-The main goal of CampusShare is to:
+The goal of StudySphere is to:
 
-* Centralize academic resources
-* Reduce time spent searching for study materials
-* Help juniors access senior materials
-* Encourage peer-to-peer learning
-* Promote collaboration within college communities
-
----
-
-##  Author
-
-**Kokila**
-Student | Web Developer
-Built with 💙 using Django
+* Provide a centralized academic resource hub
+* Improve accessibility to study materials
+* Encourage collaborative learning
+* Reduce duplication of effort among students
+* Build a structured digital academic ecosystem
 
 ---
 
-##  Future Enhancements
 
-* Email / OTP login
-* Bookmark resources
-* Notifications for new uploads
-* REST API for mobile app
-* Role-based permissions (Faculty uploads)
+## Future Enhancements
 
----
+* Email verification system
+* Bookmark feature
+* Resource recommendation system
+* REST API for mobile integration
+* Role-based access (Faculty / Admin / Student)
 
